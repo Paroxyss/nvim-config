@@ -1,0 +1,29 @@
+local options = {
+	showcmd = false,
+	--lazyredraw = true,
+	synmaxcol = 2048,
+	shiftwidth = 4,
+	ignorecase = true,
+	smartcase = true,
+	splitright = true,
+	splitbelow = true,
+	timeout = true,
+	timeoutlen = 200,
+	scrolloff = 8,
+	cmdheight = 0,
+	undofile = true,
+	undolevels = 5000,
+	writebackup = false,
+	swapfile = false,
+	fileformat = "unix",
+	encoding = "utf-8",
+	--showtabline = 2,
+	laststatus = 3,
+	termguicolors = true,
+	--cursorline = true,
+	--cursorlineopt = "number",
+}
+
+for k, v in pairs(options) do
+	vim.opt[k] = v
+end
