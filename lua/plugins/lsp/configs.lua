@@ -7,8 +7,8 @@ local configs = {
 					globals = { "vim", "u", "nvim", "P" }
 				},
 				workspaces = {
-					library = --{
-						vim.api.nvim_get_runtime_file('/Users/williamfournier/.config/nvim/emmylua-nvim', true),
+					--library = --{
+						--vim.api.nvim_get_runtime_file('/Users/williamfournier/.config/nvim/emmylua-nvim', true),
 						--[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 						--[vim.fn.stdpath("config") .. "/lua"] = true
 					--}
