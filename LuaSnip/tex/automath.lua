@@ -17,6 +17,7 @@ local simpleReplace = {
 	[";b"] = "\\beta",
 	[";g"] = "\\gamma",
 	[";e"] = "\\epsilon",
+	[";t"] = "\\tau",
 	["<"] = "<",
 	[">"] = ">",
 	["="] = "="
@@ -26,9 +27,16 @@ local onlyInMath = {
 	["fa"] = "\\forall",
 	["ex"] = "\\exists",
 	["in"] = "\\in",
+	["\\inc"] = "\\subset",
 	["imp"] = "\\implies",
+	["equ"] = "\\equiv",
 	["leq"] = "\\leq",
 	["geq"] = "\\geq",
+}
+
+local matchCompleted = {
+	["ens(.)"] = "\\mathbb",
+	["cal(.)"] = "\\mathcal"
 }
 
 local function dynamicMath(_, _, _, replaceText)
@@ -65,4 +73,29 @@ for k, v in pairs(onlyInMath) do
 	)
 end
 
+for k, v in pairs(matchCompleted) do
+	local u = function()
+		return f(function(_, snip)
+			return (v .. "{" .. string.upper(snip.captures[1]) .. "}")
+		end, {})
+	end
+	table.insert(snippets,
+		s({ trig = k, snippetType = "autosnippet", regTrig = true },
+			{
+				u()
+			}, {
+			condition = ctx.math
+		})
+	)
+	table.insert(snippets,
+		s({ trig = k, regTrig = true },
+			{
+				t("$"), u(), t("$")
+			}, {
+			condition = function()
+				return not ctx.math()
+			end
+		})
+	)
+end
 return snippets
