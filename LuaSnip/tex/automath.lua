@@ -11,8 +11,6 @@ local r = ls.restore_node
 local fmta = require("luasnip.extras.fmt").fmta
 
 local ctx = require("utils.latexContexts").ctx
-local getCustomEnv = require("utils.latexContexts").getCustomEnv
-local createAutoSnippet = require("utils.sippetsUtil").createAutoSnippet
 
 local simpleReplace = {
 	[";a"] = "\\alpha",

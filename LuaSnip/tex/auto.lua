@@ -36,7 +36,7 @@ return {
 	}),
 	createAutoSnippet({
 		trig = "sum",
-		format = "\\sum{<start>}^{<endi>} <corpus>",
+		format = "\\sum_{<start>}^{<endi>} <corpus>",
 		nodes = {
 			start = i(1, "start"),
 			endi = i(2, "end"),
@@ -46,7 +46,7 @@ return {
 	}),
 	createAutoSnippet({
 		trig = "int",
-		format = "\\int{<start>}^{<endi>} <corpus>",
+		format = "\\int_{<start>}^{<endi>} <corpus>",
 		nodes = {
 			start = i(1, "start"),
 			endi = i(2, "end"),
@@ -54,24 +54,6 @@ return {
 		},
 		condition = ctx.math
 	}),
-
-
-	--greek letters
-	s({ trig = ";;a", snippetType = "autosnippet" },
-		{
-			t("\\alpha"),
-		}
-	),
-	s({ trig = ";;b", snippetType = "autosnippet" },
-		{
-			t("\\beta"),
-		}
-	),
-	s({ trig = ";;g", snippetType = "autosnippet" },
-		{
-			t("\\gamma"),
-		}
-	),
 
 	-- zone d'equation
 	s({ trig = "$", snippetType = "autosnippet" },
@@ -111,6 +93,4 @@ return {
 			end
 		}
 	)
-
-	-- opérateurs et quantificateurs
 }
