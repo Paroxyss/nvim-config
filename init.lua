@@ -8,5 +8,4 @@ vim.g.sonokai_better_performance = 1
 vim.cmd 'colorscheme sonokai'
 
 vim.g.vimtex_view_method = 'zathura'
-vim.g.mapleader = ' '
---vim.cmd('source ~/.config/nvim/config.vim')
+vim.g.maplocalleader = ' '
