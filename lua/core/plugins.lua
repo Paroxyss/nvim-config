@@ -56,14 +56,7 @@ require('packer').startup(function(use)
 		end
 	}
 
-	--use {
-	--    'projekt0n/github-nvim-theme',
-	--    config = function()
-	--        require('github-theme').setup({
-	--            theme_style = "dimmed"
-	--        })
-	--    end
-	--}
+	use 'sainnhe/sonokai'
 
 	use {
 		'nvim-lualine/lualine.nvim',
