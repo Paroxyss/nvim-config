@@ -59,7 +59,7 @@ return {
 	s({ trig = "$", snippetType = "autosnippet" },
 		{
 			c(1, {
-				sn(nil, { t("$ "), r(1, "expression"), t(" $ ") }),
+				sn(nil, { t("$"), r(1, "expression"), t("$ ") }),
 				sn(nil, { t({ "\\[ ", "    " }), r(1, "expression"), t({ "", "\\]", "" }) })
 			})
 		},
@@ -92,5 +92,13 @@ return {
 				return getCustomEnv(captures[1])
 			end
 		}
-	)
+	),
+
+	-- __ et ^^ , rajouter des accolades
+	s({ trig = "__", snippetType = "autosnippet", wordTrig = false }, {
+		t("_{"), i(1), t("}"), i(0)
+	}, { condition = ctx.math }),
+	s({ trig = "^^", snippetType = "autosnippet", wordTrig = false }, {
+		t("^{"), i(1), t("}"), i(0)
+	}, { condition = ctx.math }),
 }

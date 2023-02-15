@@ -20,18 +20,19 @@ local simpleReplace = {
 	[";t"] = "\\tau",
 	["<"] = "<",
 	[">"] = ">",
-	["="] = "="
+	["="] = "=",
+	["leq"] = "\\leq",
+	["geq"] = "\\geq",
 }
 
 local onlyInMath = {
 	["fa"] = "\\forall",
 	["ex"] = "\\exists",
-	["in"] = "\\in",
-	["\\inc"] = "\\subset",
+	["in "] = "\\in ", -- spaces used to make diffence between in and inc
+	["inc "] = "\\subset ",
 	["imp"] = "\\implies",
 	["equ"] = "\\equiv",
-	["leq"] = "\\leq",
-	["geq"] = "\\geq",
+	["lnot"] = "\\lnot"
 }
 
 local matchCompleted = {
@@ -39,7 +40,7 @@ local matchCompleted = {
 	["cal(.)"] = "\\mathcal"
 }
 
-local function dynamicMath(_, _, _, replaceText)
+--[[local function dynamicMath(_, _, _, replaceText)
 	if not ctx.math() then
 		return sn(1, {
 			t("$"), t(replaceText), t("$")
@@ -48,16 +49,33 @@ local function dynamicMath(_, _, _, replaceText)
 	return sn(1, {
 		t(replaceText)
 	})
-end
+end--]]
 
 local snippets = {}
 
 for k, v in pairs(simpleReplace) do
-	table.insert(snippets,
+	--[[table.insert(snippets, // this is buggy, idk why :(
 		s({ trig = k, snippetType = "autosnippet" },
 			{
 				d(1, dynamicMath, {}, { user_args = { v } })
 			}
+		)
+	)]] --
+
+	table.insert(snippets,
+		s({ trig = k, snippetType = "autosnippet" },
+			{
+				t("$" .. v .. "$")
+			},
+			{ condition = function () return not ctx.math() end }
+		)
+	)
+	table.insert(snippets,
+		s({ trig = k, snippetType = "autosnippet" },
+			{
+				t(v)
+			},
+			{ condition = ctx.math}
 		)
 	)
 end
