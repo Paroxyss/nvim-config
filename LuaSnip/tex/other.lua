@@ -24,7 +24,7 @@ rec_equation = function()
 	)
 end
 
-local function rec_ls ()
+local function rec_ls()
 	return sn(
 		nil,
 		c(1, {
@@ -33,6 +33,9 @@ local function rec_ls ()
 			sn(nil, { t({ "", "\t\\bi " }), i(1), d(2, rec_ls, {}) }),
 		})
 	)
+end
+local function genDyn()
+    return d()
 end
 
 return {
@@ -54,4 +57,49 @@ return {
 		d(2, rec_ls, {}),
 		t({ "", "\\end{itemize}" }),
 	}),
+	s("ll", {
+		t({ "\\begin{itemize}", "\t\\bi " }),
+		i(1),
+		d(2, rec_ls, {}),
+		t({ "", "\\end{itemize}" }),
+	}),
+	s("fdef",
+		{
+			c(1, {
+				fmta("\\funcdefExpr{<n>}{<v>}{<ex>}",
+					{
+						n = r(1, "name"),
+						v = r(2, "variable"),
+						ex = r(3, "expression")
+					}
+				),
+				fmta("\\funcdefEns{<n>}{<s>}{<e>}",
+					{
+						n = r(1, "name"),
+						s = r(2, "ensStart"),
+						e = r(3, "ensEnd")
+					}
+				),
+				fmta("\\funcdefFull{<n>}{<s>}{<e>}{<v>}{<ex>}",
+					{
+						n = r(1, "name"),
+						s = r(2, "ensStart"),
+						e = r(3, "ensEnd"),
+						v = r(4, "variable"),
+						ex = r(5, "expression")
+					}
+				),
+			})
+		},
+		{
+			stored = {
+				["name"] = i(1, "f"),
+				["ensStart"] = i(1, "depart"),
+				["ensEnd"] = i(1, "fin"),
+				["variable"] = i(1, "x"),
+				["expression"] = i(1, "exp"),
+			},
+			condition = ctx.math
+		}
+	),
 }

@@ -32,7 +32,8 @@ local onlyInMath = {
 	["inc "] = "\\subset ",
 	["imp"] = "\\implies",
 	["equ"] = "\\equiv",
-	["lnot"] = "\\lnot"
+	["lnot"] = "\\lnot",
+	["not"] = "\\not",
 }
 
 local matchCompleted = {
