@@ -72,11 +72,11 @@ return {
 	),
 	s({ trig = "\"", snippetType = "autosnippet" }, {
 		t("\\text{"), i(1), t("}")
-	}, { condition = ctx.math}),
+	}, { condition = ctx.math }),
 
 	s({ trig = "__", snippetType = "autosnippet" }, {
 		t("\\underline{"), i(1), t("}")
-	}, { condition = function() return not ctx.math() end}),
+	}, { condition = function() return not ctx.math() end }),
 
 	-- envs perso
 	s({ trig = "bg(%w+)", snippetType = "autosnippet", regTrig = true },
