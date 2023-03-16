@@ -4,6 +4,7 @@ vim.g.mapleader = " "
 
 vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true })
 vim.api.nvim_set_keymap("c", "jk", "<Esc>", { noremap = true })
+vim.api.nvim_set_keymap("s", "jk", "<Esc>", { noremap = true })
 
 wk.register({
 	a = {

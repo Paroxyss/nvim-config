@@ -118,7 +118,7 @@ require('packer').startup(function(use)
 		config = function()
 			local ls = require("luasnip")
 			ls.config.setup({ enable_autosnippets = true })
-			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip/" })
+			require("luasnip.loaders.from_lua").load({ paths = vim.fn.sdtpath('config') .. "/LuaSnip/" })
 		end
 	}
 	use { 'saadparwaiz1/cmp_luasnip' }
