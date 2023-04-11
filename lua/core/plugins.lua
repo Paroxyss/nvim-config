@@ -1,13 +1,13 @@
---[[ idées
---
---]]
 require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'lewis6991/impatient.nvim'
 	use 'wbthomason/packer.nvim'
 	use "nvim-lua/plenary.nvim"
 
-	use "dstein64/vim-startuptime"
+	use {
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
+	}
 
 	use 'rcarriga/nvim-notify'
 
@@ -43,7 +43,10 @@ require('packer').startup(function(use)
 	}
 
 	--completion for nvim plugins dev
-	use "folke/neodev.nvim"
+	use {
+		"folke/neodev.nvim",
+		--ft = "lua",
+	}
 
 	use {
 		"williamboman/mason-lspconfig.nvim",
@@ -57,13 +60,14 @@ require('packer').startup(function(use)
 	}
 
 	use 'sainnhe/sonokai'
+	use 'NLKNguyen/papercolor-theme'
 
 	use {
 		'nvim-lualine/lualine.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 	}
 
-	use { 'echasnovski/mini.nvim', branch = 'stable' }
+	--use { 'echasnovski/mini.nvim', branch = 'stable' }
 
 	use {
 		"folke/which-key.nvim",
@@ -97,6 +101,7 @@ require('packer').startup(function(use)
 
 	use {
 		'nvim-tree/nvim-tree.lua',
+		--cmd = {"NvimTreeOpen", "NvimTreeToggle"},
 		requires = {
 			'nvim-tree/nvim-web-devicons'
 		},
@@ -118,7 +123,7 @@ require('packer').startup(function(use)
 		config = function()
 			local ls = require("luasnip")
 			ls.config.setup({ enable_autosnippets = true })
-			require("luasnip.loaders.from_lua").load({ paths = vim.fn.sdtpath('config') .. "/LuaSnip/" })
+			require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath('config') .. "/LuaSnip/" })
 		end
 	}
 	use { 'saadparwaiz1/cmp_luasnip' }
@@ -137,4 +142,40 @@ require('packer').startup(function(use)
 		end
 	}
 
+	-- >>> Tests
+	use {
+		'~/.config/nvim/localPlugins/texmate.nvim',
+		after = "LuaSnip",
+		config = function()
+			require("plugins.texmate")
+		end,
+	}
+	-- <<< Tests
+
+	use { 'jdhao/better-escape.vim', event = 'InsertEnter' }
+
+	use {
+		'jbyuki/instant.nvim',
+		--opt = true,
+		cmd = { "InstantStartSingle", "InstantJoinSingle", "InstantStartSession", "InstantJoinSession" }
+	}
+	use {
+		'Vonr/align.nvim',
+		--opt = true,
+		--event = "InsertEnter",
+		config = function()
+			require("plugins.align")
+		end
+	}
+
+	use {
+		'salkin-mada/openscad.nvim',
+		config = function()
+			require('openscad')
+			-- load snippets, note requires
+			vim.g.openscad_load_snippets = true
+			vim.g.openscad_auto_open = true
+		end,
+		requires = 'L3MON4D3/LuaSnip'
+	}
 end)

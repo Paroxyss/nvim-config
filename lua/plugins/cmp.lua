@@ -2,11 +2,11 @@ local cmp = require 'cmp'
 local luasnip = require("luasnip")
 
 cmp.setup({
-	--[[
-	completion = {
-      autocomplete = false
-    },
-	]] --
+
+	--[[completion = {
+      --autocomplete = false
+    },]] --
+
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
@@ -43,14 +43,14 @@ cmp.setup({
 		end, { "i", "s" }),
 
 		--choices
-		["J"] = cmp.mapping(function(fallback)
+		["Ï"] = cmp.mapping(function(fallback)
 			if luasnip.choice_active() then
 				luasnip.change_choice(1)
 			else
 				fallback()
 			end
 		end, { "i", "s" }),
-		["K"] = cmp.mapping(function(fallback)
+		["È"] = cmp.mapping(function(fallback)
 			if luasnip.choice_active() then
 				luasnip.change_choice(-1)
 			else
@@ -59,9 +59,9 @@ cmp.setup({
 		end, { "i", "s" })
 	}),
 	sources = cmp.config.sources({
-		{ name = 'luasnip', max_item_count = 1 },
+		{ name = 'luasnip', max_item_count = 2 },
 		--{ name = 'omni' },
-		{ name = 'nvim_lsp' , max_item_count = 2},
+		{ name = 'nvim_lsp', max_item_count = 5 },
 	}, { {
 		name = 'buffer'
 	} })

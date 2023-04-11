@@ -14,7 +14,8 @@ local configs = {
 		}
 	},
 	clangd = {
-		cmd = { "clangd", "--background-index", "--suggest-missing-includes" },
+		cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--enable-config" },
+		rootPatterns = { "compile_flags.txt", "compile_commands.json" },
 		filetypes = { "c", "cpp", "objc", "objcpp" },
 	}
 }
