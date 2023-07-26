@@ -25,7 +25,7 @@ require('packer').startup(function(use)
 			require('plugins.treesitter')
 		end
 	}
-
+	use 'nvim-treesitter/playground'
 
 	use {
 		'neovim/nvim-lspconfig',
@@ -64,7 +64,10 @@ require('packer').startup(function(use)
 
 	use {
 		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+		config = function()
+			require('lualine').setup()
+		end
 	}
 
 	--use { 'echasnovski/mini.nvim', branch = 'stable' }
@@ -72,6 +75,7 @@ require('packer').startup(function(use)
 	use {
 		"folke/which-key.nvim",
 		config = function()
+			 vim.o.timeoutlen = 2000
 			require("which-key").setup {}
 		end
 	}
@@ -177,5 +181,10 @@ require('packer').startup(function(use)
 			vim.g.openscad_auto_open = true
 		end,
 		requires = 'L3MON4D3/LuaSnip'
+	}
+
+	use {
+		'eandrju/cellular-automaton.nvim',
+		config = function() require("plugins.cellAuto") end,
 	}
 end)

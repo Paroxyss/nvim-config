@@ -8,9 +8,14 @@ vim.g.sonokai_better_performance = 1
 
 vim.g.instant_username = "william"
 
-vim.cmd 'colorscheme sonokai'
---vim.cmd 'set background=light'
---vim.cmd 'colorscheme PaperColor'
+local black_theme = true;
+
+if black_theme then
+	vim.cmd 'colorscheme sonokai'
+else
+	vim.cmd 'set background=light'
+	vim.cmd 'colorscheme PaperColor'
+end
 
 -- Vimtex config (à bouger)
 vim.g.vimtex_view_method = 'sioyek'

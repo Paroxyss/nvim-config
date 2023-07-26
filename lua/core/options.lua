@@ -22,7 +22,8 @@ local options = {
 	termguicolors = true,
 	--cursorline = true,
 	--cursorlineopt = "number",
-	tabstop=4
+	tabstop=4,
+	wrap=false,
 }
 
 for k, v in pairs(options) do

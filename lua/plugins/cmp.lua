@@ -58,10 +58,11 @@ cmp.setup({
 			end
 		end, { "i", "s" })
 	}),
+	performance = { max_view_entries = 10 },
 	sources = cmp.config.sources({
-		{ name = 'luasnip', max_item_count = 2 },
-		--{ name = 'omni' },
-		{ name = 'nvim_lsp', max_item_count = 5 },
+		{ name = 'luasnip' },
+		{ name = 'nvim_lsp' },
+		{ name = 'nvim_lsp:clangd' },
 	}, { {
 		name = 'buffer'
 	} })
