@@ -1,25 +1,11 @@
+local util = require("plugins.cellAuto.util")
 local config = {
 	fps = 24,
 	name = 'sand',
 }
 
-function string.starts(String,Start)
-   return string.sub(String,1,string.len(Start))==Start
-end
-
-local function getCase(grid, x, y)
-	if (grid[y] == nil) then return nil
-	else
-		return grid[y][x]
-	end
-end
-
-local function swap(grid, sx, sy, dx, dy)
-	local dcase = grid[dy][dx]
-
-	grid[dy][dx] = grid[sy][sx]
-	grid[sy][sx] = dcase
-end
+local getCase = util.getCase
+local swap = util.swap
 
 local function shouldIgnore(c)
 	return string.starts(c.hl_group, "@comment")

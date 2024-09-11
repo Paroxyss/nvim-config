@@ -1,86 +1,100 @@
-require('packer').startup(function(use)
-	-- Packer can manage itself
-	use 'lewis6991/impatient.nvim'
-	use 'wbthomason/packer.nvim'
-	use "nvim-lua/plenary.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
-	use {
+require("lazy").setup({
+	"nvim-lua/plenary.nvim",
+
+	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
-	}
+	},
 
-	use 'rcarriga/nvim-notify'
+	--"github/copilot.vim",
 
-	use {
+	{
+		'stevearc/dressing.nvim',
+		opts = {},
+	},
+	'rcarriga/nvim-notify',
+
+	{
 		'nvim-telescope/telescope.nvim',
-		after = 'plenary.nvim',
+		branch = '0.1.x',
+		dependencies = { 'nvim-lua/plenary.nvim', "which-key.nvim" },
 		config = function()
-			require('plugins.telescope')
-		end
-	}
+			require("plugins.telescope")
+		end,
+	},
 
-	use {
+	{
 		'nvim-treesitter/nvim-treesitter',
+		build = ":TSUpdate",
 		config = function()
 			require('plugins.treesitter')
 		end
-	}
-	use 'nvim-treesitter/playground'
+	},
 
-	use {
+	{
 		'neovim/nvim-lspconfig',
 		config = function()
 			require('plugins.lsp')
 		end
-	}
+	},
 
-	use {
+	{
 		"williamboman/mason.nvim",
 		after = "nvim-lspconfig",
 		config = function()
 			require('mason').setup()
 		end
-	}
+	},
 
 	--completion for nvim plugins dev
-	use {
+	{
 		"folke/neodev.nvim",
-		--ft = "lua",
-	}
+	},
 
-	use {
+	{
 		"williamboman/mason-lspconfig.nvim",
-		after = {
+		dependencies = {
 			"mason.nvim",
 			"neodev.nvim"
 		},
 		config = function()
 			require('plugins.lsp.masonlsp')
 		end
-	}
+	},
 
-	use 'sainnhe/sonokai'
-	use 'NLKNguyen/papercolor-theme'
+	'sainnhe/sonokai',
+	'NLKNguyen/papercolor-theme',
 
-	use {
+	{
 		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+		dependencies = { 'kyazdani42/nvim-web-devicons', opt = true },
 		config = function()
-			require('lualine').setup()
+			require('lualine').setup({})
 		end
-	}
+	},
 
-	--use { 'echasnovski/mini.nvim', branch = 'stable' }
-
-	use {
+	{
 		"folke/which-key.nvim",
 		config = function()
-			 vim.o.timeoutlen = 2000
+			vim.o.timeoutlen = 2000
 			require("which-key").setup {}
 		end
-	}
+	},
 
-	use {
+	{
 		"ray-x/lsp_signature.nvim",
 		config = function()
 			require("lsp_signature").setup({
@@ -89,90 +103,82 @@ require('packer').startup(function(use)
 				hint_scheme = "Comment",
 			})
 		end,
-		requires = "neovim/nvim-lspconfig",
-	}
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
 
-	use 'hrsh7th/cmp-nvim-lsp'
-	use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-cmdline'
-	use { 'hrsh7th/nvim-cmp',
-		after = { 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline' },
+	'hrsh7th/cmp-nvim-lsp',
+	'hrsh7th/cmp-buffer',
+	'hrsh7th/cmp-path',
+	'hrsh7th/cmp-cmdline',
+	{
+		'hrsh7th/nvim-cmp',
+		dependencies = { 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp-cmdline' },
 		config = function()
 			require("plugins.cmp")
 		end
-	}
+	},
 
-	use {
+	{
 		'nvim-tree/nvim-tree.lua',
-		--cmd = {"NvimTreeOpen", "NvimTreeToggle"},
-		requires = {
+		event = "VeryLazy",
+		dependencies = {
 			'nvim-tree/nvim-web-devicons'
 		},
 		config = function()
 			require('plugins.nvimtree')
 		end
-	}
+	},
 
-	use {
+	{
 		'phaazon/hop.nvim',
+		event = "VeryLazy",
 		commit = 'caaccee814afefa8cb5ba4cca4d1e22013c4b489',
 		config = function()
 			require('plugins.hop')
 		end
-	}
+	},
 
-	use {
+	{
 		"L3MON4D3/LuaSnip",
+		event = "VeryLazy",
 		config = function()
 			local ls = require("luasnip")
 			ls.config.setup({ enable_autosnippets = true })
 			require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath('config') .. "/LuaSnip/" })
 		end
-	}
-	use { 'saadparwaiz1/cmp_luasnip' }
+	},
 
-	use {
+	{ 'saadparwaiz1/cmp_luasnip' },
+
+	{
 		'lervag/vimtex',
 		ft = "tex"
-	}
+	},
 
-	--use 'github/copilot.vim'
-	use {
+	{
 		'TimUntersberger/neogit',
-		requires = 'nvim-lua/plenary.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		event = "VeryLazy",
 		config = function()
 			require('plugins.neogit')
 		end
-	}
+	},
 
-	-- >>> Tests
-	use {
-		'~/.config/nvim/localPlugins/texmate.nvim',
-		after = "LuaSnip",
-		config = function()
-			require("plugins.texmate")
-		end,
-	}
-	-- <<< Tests
+	{ 'jdhao/better-escape.vim', event = 'InsertEnter' },
 
-	use { 'jdhao/better-escape.vim', event = 'InsertEnter' }
-
-	use {
+	{
 		'jbyuki/instant.nvim',
-		--opt = true,
 		cmd = { "InstantStartSingle", "InstantJoinSingle", "InstantStartSession", "InstantJoinSession" }
-	}
-	use {
+	},
+	{
 		'Vonr/align.nvim',
-		--opt = true,
-		--event = "InsertEnter",
+		event = "VeryLazy",
 		config = function()
 			require("plugins.align")
 		end
-	}
+	},
 
-	use {
+	{
 		'salkin-mada/openscad.nvim',
 		config = function()
 			require('openscad')
@@ -180,11 +186,61 @@ require('packer').startup(function(use)
 			vim.g.openscad_load_snippets = true
 			vim.g.openscad_auto_open = true
 		end,
-		requires = 'L3MON4D3/LuaSnip'
+		dependencies = { 'L3MON4D3/LuaSnip' }
+	},
+
+	{
+		'eandrju/cellular-automaton.nvim',
+		event = "VeryLazy",
+		config = function() require("plugins.cellAuto") end,
+	},
+	'xiyaowong/transparent.nvim',
+
+	{
+		"lervag/vimtex",
+		init = function()
+			require('texmate').setup({})
+			-- Use init for configuration, don't use the more common "config".
+		end
+	},
+	"micangl/cmp-vimtex",
+
+	"Paroxyss/texmate.nvim",
+	{
+		"David-Kunz/gen.nvim",
+		opts = {
+			model = "mistral", -- The default model to use.
+			host = "localhost", -- The host running the Ollama service.
+			port = "11434", -- The port on which the Ollama service is listening.
+			display_mode = "float", -- The display mode. Can be "float" or "split".
+			show_prompt = false, -- Shows the Prompt submitted to Ollama.
+			show_model = false, -- Displays which model you are using at the beginning of your chat session.
+			quit_map = "q", -- set keymap for quit
+			no_auto_close = false, -- Never closes the window automatically.
+			init = function(_) end,
+			-- Function to initialize Ollama
+			command = function(options)
+				return "curl --silent --no-buffer -X POST http://" ..
+					options.host .. ":" .. options.port .. "/api/chat -d $body"
+			end,
+			-- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+			-- This can also be a command string.
+			-- The executed command must return a JSON object with { response, context }
+			-- (context property is optional).
+			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
+			debug = false -- Prints errors and the command which is run.
+		}
+	},
+	{
+		"Faywynnn/llama-copilot.nvim",
+		init = function()
+			require('llama-copilot').setup({
+				host = "localhost",
+				port = "11434",
+				model = "codellama:13b-code"
+			})
+			-- Use init for configuration, don't use the more common "config".
+		end
 	}
 
-	use {
-		'eandrju/cellular-automaton.nvim',
-		config = function() require("plugins.cellAuto") end,
-	}
-end)
+})

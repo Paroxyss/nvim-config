@@ -1,9 +1,11 @@
 local masonlsp = require("mason-lspconfig")
 local attach = require("utils.attach")
 local configs = require('plugins.lsp.configs')
+
 masonlsp.setup()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require'lspconfig'.glsl_analyzer.setup{}
 
 require("neodev").setup({
   -- add any options here, or leave empty to use the default settings
@@ -31,3 +33,6 @@ function LoadAllAvailableLspConfigs()
 		setup_server(server)
 	end
 end
+
+LoadAllAvailableLspConfigs()
+

@@ -1,6 +1,7 @@
 local wk = require("which-key")
 return function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
+	vim.print("attached a lsp")
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	require "lsp_signature".on_attach({}, bufnr)

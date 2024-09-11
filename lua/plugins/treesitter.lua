@@ -1,7 +1,9 @@
 require("nvim-treesitter.configs").setup {
+	ensure_installed = { "markdown" },
 	highlight = {
 		enable = true,
-		--disable = {"tex"},
+		disable = { "latex" },
+		additional_vim_regex_highlighting = { "latex", "markdown" },
 	},
 
 	indent = {
@@ -44,5 +46,8 @@ require("nvim-treesitter.configs").setup {
 			goto_node = '<cr>',
 			show_help = '?',
 		},
-	}
+	},
+	modules = {},
+	sync_install = false,
+	ignore_install = {}
 }

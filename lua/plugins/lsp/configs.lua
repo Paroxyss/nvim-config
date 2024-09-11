@@ -17,7 +17,12 @@ local configs = {
 		cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--enable-config" },
 		rootPatterns = { "compile_flags.txt", "compile_commands.json" },
 		filetypes = { "c", "cpp", "objc", "objcpp" },
-	}
+	},
+	ccls = {
+		cmd = { "ccls"},
+		rootPatterns = { "compile_flags.txt", "compile_commands.json" },
+		filetypes = { "c", "cpp", "objc", "objcpp" },
+	},
 }
 
 M.get = function(name)
