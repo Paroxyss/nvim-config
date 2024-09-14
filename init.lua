@@ -13,7 +13,6 @@ local black_theme = true;
 if black_theme then
 	vim.cmd 'colorscheme sonokai'
 	io.stderr:write("\033]50;SetProfile=Monokai^G")
-	vim.print("salut")
 else
 	vim.cmd 'set background=light'
 	vim.cmd 'colorscheme PaperColor'
