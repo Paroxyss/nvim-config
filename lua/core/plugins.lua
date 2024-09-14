@@ -9,6 +9,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
@@ -130,12 +131,23 @@ require("lazy").setup({
 	},
 
 	{
-		'phaazon/hop.nvim',
-		event = "VeryLazy",
-		commit = 'caaccee814afefa8cb5ba4cca4d1e22013c4b489',
-		config = function()
-			require('plugins.hop')
-		end
+		"ggandor/leap.nvim",
+		enabled = true,
+		-- keys = {
+		-- 	{ "s",  mode = { "n", "x", "o" }, desc = "Leap Forward to" },
+		-- 	{ "S",  mode = { "n", "x", "o" }, desc = "Leap Backward to" },
+		-- 	{ "gs", mode = { "n", "x", "o" }, desc = "Leap from Windows" },
+		-- },
+		config = function(_, opts)
+			local leap = require("leap")
+			for k, v in pairs(opts) do
+				leap.opts[k] = v
+			end
+			leap.add_default_mappings(true)
+			leap.opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+			vim.keymap.del({ "x", "o" }, "x")
+			vim.keymap.del({ "x", "o" }, "X")
+		end,
 	},
 
 	{
@@ -206,41 +218,13 @@ require("lazy").setup({
 	"micangl/cmp-vimtex",
 
 	"Paroxyss/texmate.nvim",
-	{
-		"David-Kunz/gen.nvim",
-		opts = {
-			model = "mistral", -- The default model to use.
-			host = "localhost", -- The host running the Ollama service.
-			port = "11434", -- The port on which the Ollama service is listening.
-			display_mode = "float", -- The display mode. Can be "float" or "split".
-			show_prompt = false, -- Shows the Prompt submitted to Ollama.
-			show_model = false, -- Displays which model you are using at the beginning of your chat session.
-			quit_map = "q", -- set keymap for quit
-			no_auto_close = false, -- Never closes the window automatically.
-			init = function(_) end,
-			-- Function to initialize Ollama
-			command = function(options)
-				return "curl --silent --no-buffer -X POST http://" ..
-					options.host .. ":" .. options.port .. "/api/chat -d $body"
-			end,
-			-- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-			-- This can also be a command string.
-			-- The executed command must return a JSON object with { response, context }
-			-- (context property is optional).
-			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
-			debug = false -- Prints errors and the command which is run.
-		}
-	},
-	{
-		"Faywynnn/llama-copilot.nvim",
-		init = function()
-			require('llama-copilot').setup({
-				host = "localhost",
-				port = "11434",
-				model = "codellama:13b-code"
-			})
-			-- Use init for configuration, don't use the more common "config".
-		end
-	}
 
+	{
+		"anurag3301/nvim-platformio.lua",
+		dependencies = {
+			{ "akinsho/nvim-toggleterm.lua" },
+			{ "nvim-telescope/telescope.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+	},
 })

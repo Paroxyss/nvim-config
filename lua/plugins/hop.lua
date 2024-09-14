@@ -6,10 +6,10 @@ hop.setup {}
 
 wk.register({
 	["<leader>"] = {
-		v = { function()
+		u = { function()
 			hop.hint_char2({ direction = directions.AFTER_CURSOR })
 		end, "Hop forward" },
-		V = { function()
+		i = { function()
 			hop.hint_char2({ direction = directions.BEFORE_CURSOR })
 		end, "Hop backward" },
 	},
