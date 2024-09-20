@@ -156,7 +156,7 @@ require("lazy").setup({
 		config = function()
 			local ls = require("luasnip")
 			ls.config.setup({ enable_autosnippets = true })
-			require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath('config') .. "/LuaSnip/" })
+			require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath('config') .. "/LuaSnip/" } })
 		end
 	},
 
@@ -227,4 +227,25 @@ require("lazy").setup({
 			{ "nvim-lua/plenary.nvim" },
 		},
 	},
+
+	{
+		"izeau/iterm.nvim",
+		version = false,
+		config = function()
+			require("iterm").setup(false)
+		end
+	},
+
+	{
+		'jim-fx/sudoku.nvim',
+		cmd = "Sudoku",
+		config = function()
+			require("sudoku").setup({
+				-- configuration ...
+			})
+		end
+	},
+
+	{ "rktjmp/playtime.nvim" }
+
 })

@@ -4,13 +4,16 @@ vim.g.mapleader = " "
 
 local themeActuel = false
 local function setTheme(light)
+	local iterm = require("iterm")
 	if light then
 		themeActuel = true
 		vim.cmd 'set background=light'
 		vim.cmd 'colorscheme PaperColor'
+		iterm.set_profile("WhiteTheme")
 	else
 		themeActuel = false
 		vim.cmd 'colorscheme sonokai'
+		iterm.set_profile("Monokai")
 	end
 end
 

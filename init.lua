@@ -20,4 +20,3 @@ end
 -- Vimtex config (à bouger)
 vim.g.vimtex_view_method = 'sioyek'
 vim.g.maplocalleader = ' '
-
