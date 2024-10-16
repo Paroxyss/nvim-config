@@ -9,10 +9,12 @@ local function setTheme(light)
 		themeActuel = true
 		vim.cmd 'set background=light'
 		vim.cmd 'colorscheme PaperColor'
+		vim.cmd 'TransparentEnable'
 		iterm.set_profile("WhiteTheme")
 	else
 		themeActuel = false
 		vim.cmd 'colorscheme sonokai'
+		vim.cmd 'TransparentDisable'
 		iterm.set_profile("Monokai")
 	end
 end

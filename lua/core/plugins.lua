@@ -13,6 +13,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{
+		'sainnhe/sonokai',
+		config = function()
+			require("plugins.theme")
+		end,
+		dependencies = {
+			'NLKNguyen/papercolor-theme',
+		}
+	},
+
 	"nvim-lua/plenary.nvim",
 
 	{
@@ -76,8 +86,6 @@ require("lazy").setup({
 		end
 	},
 
-	'sainnhe/sonokai',
-	'NLKNguyen/papercolor-theme',
 
 	{
 		'nvim-lualine/lualine.nvim',
@@ -182,13 +190,6 @@ require("lazy").setup({
 		'jbyuki/instant.nvim',
 		cmd = { "InstantStartSingle", "InstantJoinSingle", "InstantStartSession", "InstantJoinSession" }
 	},
-	{
-		'Vonr/align.nvim',
-		event = "VeryLazy",
-		config = function()
-			require("plugins.align")
-		end
-	},
 
 	{
 		'salkin-mada/openscad.nvim',
@@ -208,16 +209,17 @@ require("lazy").setup({
 	},
 	'xiyaowong/transparent.nvim',
 
-	{
+	--[[{
 		"lervag/vimtex",
 		init = function()
 			require('texmate').setup({})
 			-- Use init for configuration, don't use the more common "config".
 		end
-	},
+	},]] --
+
 	"micangl/cmp-vimtex",
 
-	"Paroxyss/texmate.nvim",
+	{ "Paroxyss/texmate.nvim", ft = { "tex" }, lazy = true },
 
 	{
 		"anurag3301/nvim-platformio.lua",
@@ -240,12 +242,16 @@ require("lazy").setup({
 		'jim-fx/sudoku.nvim',
 		cmd = "Sudoku",
 		config = function()
-			require("sudoku").setup({
-				-- configuration ...
-			})
+			--require("sudoku").setup()
 		end
 	},
 
-	{ "rktjmp/playtime.nvim" }
-
+	{ "rktjmp/playtime.nvim" },
+	{
+		'echasnovski/mini.nvim',
+		version = '*',
+		config = function()
+			require("plugins.mini")
+		end
+	},
 })
