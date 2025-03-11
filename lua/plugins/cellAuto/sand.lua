@@ -12,15 +12,24 @@ local function shouldIgnore(c)
 end
 
 local function couldSwap(a, dest)
-	return (not shouldIgnore(dest)) and (dest.char == ' ' or a.hl_group > dest.hl_group) -- or (a.hl_group == dest.hl_group and a.char > dest.char))
+	return (not shouldIgnore(dest)) and
+		(dest.char == ' ' or a.hl_group > dest.hl_group) -- or (a.hl_group == dest.hl_group and a.char > dest.char))
 end
 
-config.init = function()
-	frame = 1
+config.init = function(grid)
+	local frame = 1
+	for y = 0, #grid - 2 do
+		for x = 0, #(grid[y]) - 1 do
+			local case = getCase(grid, x, y)
+			if (case == nil) then goto continue end
+			if (case.char == '\t') then case.char = '    ' end
+		end
+		::continue::
+	end
 end
 
 config.update = function(grid)
-	frame = frame + 1
+	local frame = frame + 1
 	for prei = 0, #grid - 1 do
 		local y = #grid - prei
 		for x0 = 1, #(grid[y]) do
@@ -34,7 +43,6 @@ config.update = function(grid)
 			local case = getCase(grid, x, y)
 
 			if (case == nil) then goto continue end
-			if (case.char == '\t') then case.char = ' ' end
 			if (case.char == ' ') then goto continue end
 			if shouldIgnore(case) then goto continue end
 

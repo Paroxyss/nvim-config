@@ -30,7 +30,7 @@ config.update = function(grid)
 
 			local case = getCase(grid, x, y)
 
-			--if case and case.char == '\t' then case.char = '    ' end
+			--if case and case.char == '\t' then case.char = ' ' end
 
 			local dest = getCase(grid, x + dir[1], y + dir[2])
 			if dest ~= nil and dest.char == ' ' and case and not string.starts(case.hl_group, "@comment") then

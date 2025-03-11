@@ -26,7 +26,8 @@ wk.register({
 		l = { function() setTheme(true) end, "Clair" },
 		s = { function() setTheme(false) end, "Sombre" },
 		t = { function() setTheme(not themeActuel) end, "Inverser" },
-		b = {":TransparentToggle<CR>", "Inverser la transparence"}
+		b = {":TransparentToggle<CR>", "Inverser la transparence"},
+		f = { function() require("iterm").fireworks() end, "Fireworks"}
 	},
 	m = {":w<CR>:!tsc<CR>","save and tsc"}
 }, { prefix = "<leader>" })

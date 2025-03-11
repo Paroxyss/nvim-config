@@ -32,7 +32,7 @@ return function(_, bufnr)
 			D = { vim.lsp.buf.declaration, "Declaration" },
 			d = { vim.lsp.buf.definition, "Definition" },
 			i = { vim.lsp.buf.implementation, "Implementation" },
-			["<C-k>"] = { vim.lsp.buf.signature_help, "Signature help" },
+			--(useless, use K ) k = { vim.lsp.buf.signature_help, "Signature help" },
 		},
 		K = { vim.lsp.buf.hover, "Hover" },
 	}, {
