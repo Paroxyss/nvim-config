@@ -1,14 +1,11 @@
 local ca = require("cellular-automaton")
 local wk = require("which-key")
 
-wk.register({
-	["<leader>c"] = {
-		name = "Cellular",
-		s = { ":CellularAutomaton sand<CR>", "Sand" },
-		p = { ":CellularAutomaton plague<CR>", "Plague" }
-	}
+wk.add({
+    { "<leader>c", group = "Cellular" },
+    { "<leader>cp", ":CellularAutomaton plague<CR>", desc = "Plague" },
+    { "<leader>cs", ":CellularAutomaton sand<CR>", desc = "Sand" },
 })
-
 local sand = require("plugins.cellAuto.sand")
 local plague  = require("plugins.cellAuto.plague")
 

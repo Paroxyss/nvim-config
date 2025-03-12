@@ -23,12 +23,10 @@ vim.defer_fn(function()
 	})
 
 	-- keybindings
-	wk.register({
-		["<leader>e"] = {
-			name = "Explorer",
-			t = { ":NvimTreeToggle<CR>", "Toggle tree" },
-			o = { ":NvimTreeOpen<CR>", "Open tree" },
-		},
+	wk.add({
+		{ "<leader>e", group = "Explorer" },
+		{ "<leader>eo", ":NvimTreeOpen<CR>", desc = "Open tree" },
+		{ "<leader>et", ":NvimTreeToggle<CR>", desc = "Toggle tree" },
 	})
 
 	-- nvim-tree is also there in modified buffers so this function filter it out

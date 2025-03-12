@@ -18,26 +18,26 @@ require("telescope").setup {
 		}
 	}
 }
-wr.register({
-	f = {
-		name = "file",
-		f = { builtin.find_files, "Find files" },
-		g = { builtin.live_grep, "Live grep" },
-		b = { builtin.buffers, "Buffers" },
-		h = { builtin.help_tags, "Help tags" },
-		k = { builtin.keymaps, "Keymaps" },
-		r = { builtin.registers, "Keymaps" },
-		l = {
-			name = "lsp",
-			r = {builtin.lsp_references, "lsp_references"},
-			c = {builtin.lsp_incoming_calls, "lsp_incoming_calls"},
-			o = {builtin.lsp_outgoing_calls, "lsp_outgoing_calls"},
-			d = {builtin.lsp_definitions, "lsp_definitions"},
-			t = {builtin.lsp_type_definitions, "lsp_type_definitions"},
-			i = {builtin.lsp_implementations, "lsp_implementations"},
-			D = {builtin.lsp_document_symbols, "lsp_document_symbols"},
-			w = {builtin.lsp_workspace_symbols, "lsp_workspace_symbols"},
-			W = {builtin.lsp_dynamic_workspace_symbols, "lsp_dynamic_workspace_symbols"},
-		},
-	},
-}, { prefix = "<leader>" })
+
+wr.add({
+    { "<leader>f", group = "file" },
+		{ "<leader>fb", builtin.buffers,    desc = "Buffers" },
+		{ "<leader>ff", builtin.find_files, desc = "Find files" },
+		{ "<leader>fg", builtin.live_grep,  desc = "Live grep" },
+		{ "<leader>fh", builtin.help_tags,  desc = "Help tags" },
+		{ "<leader>fk", builtin.keymaps,    desc = "Keymaps" },
+
+    { "<leader>fl", builtin.registers,  group = "lsp" },
+		{ "<leader>flD", builtin.lsp_document_symbols,          desc = "lsp_document_symbols" },
+		{ "<leader>flW", builtin.lsp_dynamic_workspace_symbols, desc = "lsp_dynamic_workspace_symbols" },
+		{ "<leader>flc", builtin.lsp_incoming_calls,            desc = "lsp_incoming_calls" },
+		{ "<leader>fld", builtin.lsp_definitions,               desc = "lsp_definitions" },
+		{ "<leader>fli", builtin.lsp_implementations,           desc = "lsp_implementations" },
+		{ "<leader>flo", builtin.lsp_outgoing_calls,            desc = "lsp_outgoing_calls" },
+		{ "<leader>flr", builtin.lsp_references,                desc = "lsp_references" },
+		{ "<leader>flt", builtin.lsp_type_definitions,          desc = "lsp_type_definitions" },
+		{ "<leader>flw", builtin.lsp_workspace_symbols,         desc = "lsp_workspace_symbols" },
+})
+--[[
+--
+--]] --

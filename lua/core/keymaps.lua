@@ -1,6 +1,7 @@
 local wk = require("which-key")
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = ' '
 
 local themeActuel = false
 local function setTheme(light)
@@ -19,22 +20,18 @@ local function setTheme(light)
 	end
 end
 
-wk.register({
-	["nd"] = { require("notify").dismiss, "DismissNotifications" },
-	t = {
-		name = "Theme",
-		l = { function() setTheme(true) end, "Clair" },
-		s = { function() setTheme(false) end, "Sombre" },
-		t = { function() setTheme(not themeActuel) end, "Inverser" },
-		b = {":TransparentToggle<CR>", "Inverser la transparence"},
-		f = { function() require("iterm").fireworks() end, "Fireworks"}
-	},
-	m = {":w<CR>:!tsc<CR>","save and tsc"}
-}, { prefix = "<leader>" })
+wk.add({
+    { "<leader>m", ":w<CR>:!tsc<CR>", desc = "save and tsc" },
+    { "<leader>nd", require("notify").dismiss, desc = "DismissNotifications" },
+    { "<leader>t", group = "Theme" },
+    { "<leader>tb", ":TransparentToggle<CR>", desc = "Inverser la transparence" },
+    { "<leader>tf", function() require("iterm").fireworks() end, desc = "Fireworks" },
+    { "<leader>tl", function() setTheme(true) end, desc = "Clair" },
+    { "<leader>ts", function() setTheme(false) end, desc = "Sombre" },
+    { "<leader>tt", function() setTheme(not themeActuel) end, desc = "Inverser" },
+})
 
-
-wk.register({
-	-- aller au début ou à la fin des accolades dans lesquelles on est
-	["<c-h>"] = { "[{", "Accolade précédente" },
-	["<c-l>"] = { "]}", "Accolade suivante" },
-}, { mode = { "n", "v" } })
+wk.add({
+    { "<c-h>", "[{", desc = "Accolade précédente", mode = { "n", "v" } },
+    { "<c-l>", "]}", desc = "Accolade suivante", mode = { "n", "v" } },
+})

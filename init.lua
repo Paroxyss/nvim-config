@@ -7,4 +7,3 @@ vim.g.instant_username = "william"
 
 -- Vimtex config (à bouger)
 vim.g.vimtex_view_method = 'sioyek'
-vim.g.maplocalleader = ' '

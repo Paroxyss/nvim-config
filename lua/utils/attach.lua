@@ -6,37 +6,24 @@ return function(_, bufnr)
 
 	require "lsp_signature".on_attach({}, bufnr)
 
-	wk.register({
-		["<leader>"] = {
-			w = {
-				name = "workspace",
-				a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
-				r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
-				l = { function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, "List workspace folders" },
-			},
-			D = { vim.lsp.buf.type_definition, "Type definition" },
-			r = {
-				name = "refactor",
-				n = { vim.lsp.buf.rename, "Rename" },
-				a = { vim.lsp.buf.code_action, "Code action" },
-			},
-			F = { function()
-				vim.lsp.buf.format {
-					async = true
-				}
-			end, "Format" },
-		},
-		g = {
-			D = { vim.lsp.buf.declaration, "Declaration" },
-			d = { vim.lsp.buf.definition, "Definition" },
-			i = { vim.lsp.buf.implementation, "Implementation" },
-			--(useless, use K ) k = { vim.lsp.buf.signature_help, "Signature help" },
-		},
-		K = { vim.lsp.buf.hover, "Hover" },
-	}, {
-		mode = "n",
-		buffer = bufnr,
+	wk.add({
+		{ "<leader>w",  buffer = bufnr,                                                          group = "workspace" },
+		{ "<leader>wa", vim.lsp.buf.add_workspace_folder,                                        desc = "Add workspace folder",    buffer = bufnr },
+		{ "<leader>wr", vim.lsp.buf.remove_workspace_folder,                                     desc = "Remove workspace folder", buffer = bufnr },
+		{ "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "List workspace folders",  buffer = bufnr },
+
+		{ "<leader>D", vim.lsp.buf.type_definition, desc = "Type definition", buffer = bufnr },
+
+		{ "<leader>r",  buffer = bufnr,          group = "refactor" },
+		{ "<leader>rn", vim.lsp.buf.rename,      desc = "Rename",      buffer = bufnr },
+		{ "<leader>ra", vim.lsp.buf.code_action, desc = "Code action", buffer = bufnr },
+
+		{ "<leader>F", function() vim.lsp.buf.format { async = true } end, desc = "Format", buffer = bufnr },
+
+		{ "gD", vim.lsp.buf.declaration,    desc = "Declaration",    buffer = bufnr },
+		{ "gd", vim.lsp.buf.definition,     desc = "Definition",     buffer = bufnr },
+		{ "gi", vim.lsp.buf.implementation, desc = "Implementation", buffer = bufnr },
+
+		{ "K", vim.lsp.buf.hover, desc = "Hover", buffer = bufnr },
 	})
 end

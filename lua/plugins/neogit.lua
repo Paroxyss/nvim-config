@@ -3,6 +3,6 @@ local wk = require('which-key')
 
 neogit.setup {}
 
-wk.register({
-	["<leader>g"] = { function() neogit.open("commit") end, "Git popup" }
+wk.add({
+	{"<leader>g", function() neogit.open() end, desc = "Git popup" }
 })
