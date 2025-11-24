@@ -22,6 +22,11 @@ require("lazy").setup({
 			'NLKNguyen/papercolor-theme',
 		}
 	},
+	{
+		"rktjmp/lush.nvim",
+		-- if you wish to use your own colorscheme:
+		-- { dir = '/absolute/path/to/colorscheme', lazy = true },
+	},
 
 	"nvim-lua/plenary.nvim",
 
@@ -65,6 +70,7 @@ require("lazy").setup({
 	{
 		"williamboman/mason.nvim",
 		after = "nvim-lspconfig",
+		version = "^1.0.0",
 		config = function()
 			require('mason').setup()
 		end
@@ -81,6 +87,7 @@ require("lazy").setup({
 			"mason.nvim",
 			"neodev.nvim"
 		},
+		version = "^1.0.0",
 		config = function()
 			require('plugins.lsp.masonlsp')
 		end
@@ -209,17 +216,14 @@ require("lazy").setup({
 	},
 	'xiyaowong/transparent.nvim',
 
-	--[[{
-		"lervag/vimtex",
-		init = function()
-			require('texmate').setup({})
-			-- Use init for configuration, don't use the more common "config".
-		end
-	},]] --
-
 	"micangl/cmp-vimtex",
 
-	{ "Paroxyss/texmate.nvim", ft = { "tex" }, lazy = true },
+	{
+		"Paroxyss/texmate.nvim",
+		ft = { "tex" },
+		lazy = true,
+		config = function() require("plugins.texmate") end,
+	},
 
 	{
 		"anurag3301/nvim-platformio.lua",
@@ -270,5 +274,110 @@ require("lazy").setup({
 		event = { "CmdlineEnter" },
 		ft = { "go", 'gomod' },
 		build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+	},
+
+	{
+		"deponian/nvim-base64",
+		version = "*",
+		keys = {
+			-- Decode/encode selected sequence from/to base64
+			-- (mnemonic: [b]ase64)
+			{ "gb", "<Plug>(FromBase64)", mode = "v" },
+			{ "gB", "<Plug>(ToBase64)",   mode = "v" },
+		},
+		config = function()
+			require("nvim-base64").setup()
+		end,
+	},
+
+	-- syntax highlighting for kitty config files
+	{
+		"fladson/vim-kitty",
+		ft = "kitty",
+	},
+
+	{
+		"Civitasv/cmake-tools.nvim",
+		ft = { "c", "cpp" },
+		dependencies = { "stevearc/overseer.nvim" },
+		config = function()
+			require("plugins.cmake-tools")
+		end,
+	},
+	{ -- The task runner we use
+		"stevearc/overseer.nvim",
+		commit = "400e762648b70397d0d315e5acaf0ff3597f2d8b",
+		cmd = { "MakeitOpen", "MakeitToggleResults", "MakeitRedo" },
+		opts = {
+			task_list = {
+				direction = "bottom",
+				min_height = 25,
+				max_height = 25,
+				default_detail = 1
+			},
+		},
+	},
+	{
+		'mfussenegger/nvim-dap'
+	},
+	{
+		"julianolf/nvim-dap-lldb",
+		dependencies = { "mfussenegger/nvim-dap" },
+	},
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+
+	{
+		"nat-418/boole.nvim",
+		config = function()
+			require('boole').setup({
+				mappings = {
+					increment = '<C-a>',
+					decrement = '<C-x>'
+				},
+				-- User defined loops
+				additions = {},
+				allow_caps_additions = {
+					{ 'enable', 'disable' }
+					-- enable → disable
+					-- Enable → Disable
+					-- ENABLE → DISABLE
+				}
+			})
+		end,
+	},
+
+	{
+		'sahaj-b/brainrot.nvim',
+		event = 'VeryLazy',
+		opts = {
+			disable_phonk = false, -- skip phonk/overlay on "no errors"
+			phonk_time = 2.5, -- seconds the phonk/image overlay stays
+			min_error_duration = 0.5, -- minimum seconds errors must exist before phonk triggers (0 = instant)
+			block_input = false, -- block input during phonk/overlay
+			dim_level = 60,  -- phonk overlay darkness 0..100
+
+			sound_enabled = true, -- enable sounds
+			image_enabled = true, -- enable images (needs image.nvim)
+
+			boom_volume = 50, -- volume for vine boom sound (0..100)
+			phonk_volume = 50, -- volume for phonk sound (0..100)
+
+			boom_sound = nil, -- custom boom sound path (e.g., "~/sounds/boom.ogg")
+			phonk_dir = nil, -- custom phonk folder path (e.g., "~/sounds/phonks")
+			image_dir = nil, -- custom image folder path (e.g., "~/memes/images")
+
+			lsp_wide = false,
+		}
+	},
+
+	{
+		"3rd/image.nvim",
+		build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
+		opts = {
+			processor = "magick_cli",
+		},
+		config = function()
+			require("image").setup()
+		end,
 	}
 })

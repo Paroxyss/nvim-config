@@ -1,4 +1,3 @@
-
 -- Alignement du code
 require('mini.align').setup({
 	mappings = {

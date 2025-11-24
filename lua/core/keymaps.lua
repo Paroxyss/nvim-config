@@ -21,7 +21,7 @@ local function setTheme(light)
 end
 
 wk.add({
-    { "<leader>m", ":w<CR>:!tsc<CR>", desc = "save and tsc" },
+    --{ "<leader>m", ":w<CR>:!tsc<CR>", desc = "save and tsc" },
     { "<leader>nd", require("notify").dismiss, desc = "DismissNotifications" },
     { "<leader>t", group = "Theme" },
     { "<leader>tb", ":TransparentToggle<CR>", desc = "Inverser la transparence" },
@@ -35,3 +35,7 @@ wk.add({
     { "<c-h>", "[{", desc = "Accolade précédente", mode = { "n", "v" } },
     { "<c-l>", "]}", desc = "Accolade suivante", mode = { "n", "v" } },
 })
+
+-- disable horizontal scroll
+vim.cmd "nnoremap <ScrollWheelRight> <Nop>"
+vim.cmd "nnoremap <ScrollWheelLeft> <Nop>"

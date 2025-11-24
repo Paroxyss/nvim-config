@@ -26,8 +26,9 @@ wr.add({
 		{ "<leader>fg", builtin.live_grep,  desc = "Live grep" },
 		{ "<leader>fh", builtin.help_tags,  desc = "Help tags" },
 		{ "<leader>fk", builtin.keymaps,    desc = "Keymaps" },
+		{ "<leader>fr", builtin.registers,  desc = "Registers" },
 
-    { "<leader>fl", builtin.registers,  group = "lsp" },
+		{ "<leader>fl", group = "lsp" },
 		{ "<leader>flD", builtin.lsp_document_symbols,          desc = "lsp_document_symbols" },
 		{ "<leader>flW", builtin.lsp_dynamic_workspace_symbols, desc = "lsp_dynamic_workspace_symbols" },
 		{ "<leader>flc", builtin.lsp_incoming_calls,            desc = "lsp_incoming_calls" },
